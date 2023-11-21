@@ -1,5 +1,5 @@
-import { SimplePokemon } from "@/app/libs/interfaces";
-import { PokemonCard } from ".";
+import { SimplePokemon } from "@/libs/interfaces";
+import { PokemonCard } from "./PokemonCard";
 
 interface Props {
   pokemons: SimplePokemon[];
