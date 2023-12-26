@@ -32,7 +32,9 @@ export default async function PokemonsPage() {
   return (
     <>
       <div className="flex flex-col">
-        <h2 className="text-5xl my-3">Listado de Pokémons</h2>
+        <h2 className="text-5xl my-3">
+          Listado de Pokémons <small className="text-blue-500">estático</small>
+        </h2>
 
         <PokemonGrid pokemons={pokemons} />
       </div>

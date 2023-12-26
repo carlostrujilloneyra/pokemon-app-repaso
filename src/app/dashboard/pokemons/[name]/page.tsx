@@ -1,25 +1,29 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import { IndividualPokemon } from "@/libs/interfaces";
+import { APIResults, IndividualPokemon } from "@/libs/interfaces";
 
 interface Props {
-  params: { id: string };
+  params: { name: string };
 }
 
 // Esto solo se va a ejecutar en build time
 export async function generateStaticParams() {
-  const static151Pokemons = Array.from({ length: 151 }).map(
-    (v, i) => `${i + 1}`
-  );
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`);
 
-  return static151Pokemons.map((id) => ({
-    id: id,
+  const data: APIResults = await response.json();
+
+  const static151Pokemons = data.results.map((pokemon) => ({
+    name: pokemon.name,
+  }));
+
+  return static151Pokemons.map(({ name }) => ({
+    name: name,
   }));
 }
 
 // Para generar metadata dinámica
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id, name } = await getPokemonById(params.id);
+  const { id, name } = await getPokemonByName(params.name);
 
   return {
     title: `#${id} - ${name}`,
@@ -27,16 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const getPokemonById = async (id: string): Promise<IndividualPokemon> => {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+const getPokemonByName = async (name: string): Promise<IndividualPokemon> => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
     cache: "force-cache",
   });
   const pokemon: IndividualPokemon = await res.json();
   return pokemon;
 };
 
-export default async function PokemonPage({ params }: Props) {
-  const pokemon = await getPokemonById(params.id);
+export default async function PokemonIndividualPage({ params }: Props) {
+  const pokemon = await getPokemonByName(params.name);
 
   return (
     <>

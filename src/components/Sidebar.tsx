@@ -3,9 +3,11 @@ import {
   IoBrowsersOutline,
   IoCalculator,
   IoFootball,
+  IoHeartOutline,
   IoLogoReact,
 } from "react-icons/io5";
 import { SidebarMenuItem } from "./SidebarMenuItem";
+import Link from "next/link";
 
 const menuItems = [
   {
@@ -28,6 +30,13 @@ const menuItems = [
     title: "Pokemons",
     subTitle: "Ver Pokemons",
   },
+
+  {
+    path: "/dashboard/favorites",
+    icon: <IoHeartOutline size={36} />,
+    title: "Favoritos",
+    subTitle: "Global State",
+  },
 ];
 
 export const Sidebar = () => {
@@ -48,7 +57,10 @@ export const Sidebar = () => {
       </div>
       <div id="profile" className="px-6 py-10">
         <p className="text-slate-500 mb-3">Welcome back,</p>
-        <a href="#" className="inline-flex space-x-2 items-center">
+        <Link
+          href={"/dashboard/main"}
+          className="inline-flex space-x-2 items-center"
+        >
           <span>
             <Image
               className="rounded-full w-10 h-10"
@@ -62,7 +74,7 @@ export const Sidebar = () => {
           <span className="text-sm md:text-base font-bold">
             Carlos Trujillo
           </span>
-        </a>
+        </Link>
       </div>
       <div id="nav" className="w-full px-6">
         {menuItems.map((item) => {
