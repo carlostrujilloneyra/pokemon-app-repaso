@@ -1,5 +1,5 @@
+import { Cartcounter2 } from "@/shopping-cart/components/CartCounter";
 import { Metadata } from "next";
-import { CartCounter } from "@/shopping-cart/components/CartCounter";
 
 export const metadata: Metadata = {
   title: "Shopping Cart",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function CounterPage() {
   return (
     <>
-      <CartCounter value={5} />
+      <Cartcounter2 value={20} />
     </>
   );
 }
