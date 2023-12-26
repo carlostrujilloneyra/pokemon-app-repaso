@@ -7,6 +7,17 @@ interface Props {
   value?: number;
 }
 
+export interface CounterResponse {
+  method: string;
+  count: number;
+}
+
+const getApiCounter = async (): Promise<CounterResponse> => {
+  const response = await fetch("/api/counter");
+  const data = await response.json();
+  return data;
+};
+
 export const Cartcounter2 = ({ value = 0 }: Props) => {
   const dispatch = useAppDispatch();
 
